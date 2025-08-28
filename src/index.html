@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <title>Home</title>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Navbar Placeholder -->
+    <div id="navbar"></div>
+
+    <!-- Banner -->
+    <section class="h-64 bg-cover bg-center flex items-center justify-center text-black text-3xl font-bold"
+        style="background-image:url('./assets/images/banner.jpg')">
+        Welcome to Our Store
+    </section>
+
+    <!-- Products -->
+    <section class="p-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <a href="product-details.html?id=1" class="bg-white rounded-lg shadow-md p-4">
+            <img src="./assets/images/p1.jpg" class="w-full h-40 object-cover rounded-md">
+            <h3 class="mt-2 text-lg font-semibold">Product 1</h3>
+            <p class="text-gray-600">৳500</p>
+        </a>
+    
+        <!-- আরো 5 টা card -->
+    </section>
+    
+    <div class="text-center my-6">
+        <a href="product.html" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">View More</a>
+    </div>
+
+
+<section class="p-8 bg-gray-100">
+    <h2 class="text-2xl font-bold mb-6 text-center">Doctor Reviews</h2>
+
+    <div class="overflow-hidden relative">
+        <div id="review-slider" class="flex gap-6 transition-transform duration-500">
+            <!-- 5 review cards -->
+            <div class="min-w-[calc(50%-12px)] bg-white p-6 rounded-lg shadow flex-shrink-0 text-center">
+                <img src="./assets/images/doc1.jpg" class="w-16 h-16 mx-auto rounded-full mb-3">
+                <div class="flex justify-center mb-2"><span class="text-yellow-400">★★★★★</span></div>
+                <p class="text-gray-700">"Excellent service and professional guidance!"</p>
+            </div>
+            <div class="min-w-[calc(50%-12px)] bg-white p-6 rounded-lg shadow flex-shrink-0 text-center">
+                <img src="./assets/images/doc2.jpg" class="w-16 h-16 mx-auto rounded-full mb-3">
+                <div class="flex justify-center mb-2"><span class="text-yellow-400">★★★★☆</span></div>
+                <p class="text-gray-700">"Very satisfied with the consultation and advice."</p>
+            </div>
+            <div class="min-w-[calc(50%-12px)] bg-white p-6 rounded-lg shadow flex-shrink-0 text-center">
+                <img src="./assets/images/doc3.jpg" class="w-16 h-16 mx-auto rounded-full mb-3">
+                <div class="flex justify-center mb-2"><span class="text-yellow-400">★★★★★</span></div>
+                <p class="text-gray-700">"Highly recommend to anyone seeking proper care."</p>
+            </div>
+            <div class="min-w-[calc(50%-12px)] bg-white p-6 rounded-lg shadow flex-shrink-0 text-center">
+                <img src="./assets/images/doc4.jpg" class="w-16 h-16 mx-auto rounded-full mb-3">
+                <div class="flex justify-center mb-2"><span class="text-yellow-400">★★★★☆</span></div>
+                <p class="text-gray-700">"Friendly and knowledgeable doctor, great experience."</p>
+            </div>
+            <div class="min-w-[calc(50%-12px)] bg-white p-6 rounded-lg shadow flex-shrink-0 text-center">
+                <img src="./assets/images/doc5.jpg" class="w-16 h-16 mx-auto rounded-full mb-3">
+                <div class="flex justify-center mb-2"><span class="text-yellow-400">★★★★★</span></div>
+                <p class="text-gray-700">"Professional, caring, and efficient service!"</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- About us -->
+    <section class="p-8 flex flex-col md:flex-row items-center">
+        <img src="./assets/images/about.jpg" class="w-full md:w-1/2 rounded-lg shadow-md">
+        <div class="md:ml-6 mt-4 md:mt-0">
+            <h2 class="text-2xl font-bold">About Us</h2>
+            <p class="text-gray-700 mt-2">আমাদের সম্পর্কে কিছু তথ্য এখানে থাকবে...</p>
+        </div>
+    </section>
+
+    <!-- footer -->
+     <div id="footer"></div>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/880123456789" target="_blank"
+        class="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-lg hover:bg-green-600">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" class="w-8 h-8">
+    </a>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>

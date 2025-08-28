@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <title>Product Details</title>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <div id="navbar"></div>
+
+    <div class="p-8 flex-grow">
+        <div id="product-details" class="max-w-5xl mx-auto bg-white shadow-md p-6 rounded-lg flex flex-col md:flex-row">
+            <!-- JS দিয়ে ডাটা লোড হবে -->
+        </div>
+    </div>
+
+    <script>
+        // Dummy product data (real case এ JSON বা DB থেকেও আসতে পারে)
+        const products = [
+            { id: 1, name: "Product 1", price: 500, desc: "Product 1 details...", img: "./assets/images/p1.jpg" },
+            { id: 2, name: "Product 2", price: 700, desc: "Product 2 details...", img: "./assets/images/p2.jpg" },
+            { id: 3, name: "Product 3", price: 900, desc: "Product 3 details...", img: "./assets/images/p3.jpg" },
+            { id: 4, name: "Product 4", price: 600, desc: "Product 4 details...", img: "./assets/images/p4.jpg" },
+            { id: 5, name: "Product 5", price: 200, desc: "Product 5 details...", img: "./assets/images/p5.jpg" },
+            { id: 6, name: "Product 6", price: 800, desc: "Product 6 details...", img: "./assets/images/p6.jpg" },
+        ];
+
+        // URL থেকে id নেওয়া
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get("id"));
+        const product = products.find(p => p.id === id);
+
+        if (product) {
+            document.getElementById("product-details").innerHTML = `
+        <img src="${product.img}" class="w-full md:w-1/2 rounded-md">
+        <div class="md:ml-6 mt-4 md:mt-0">
+          <h2 class="text-2xl font-bold">${product.name}</h2>
+          <p class="text-gray-600 mt-2">${product.desc}</p>
+          <p class="text-xl font-semibold mt-2">৳${product.price}</p>
+          <a href="https://wa.me/880123456789?text=I want to buy ${product.name}"
+             target="_blank"
+             class="mt-4 inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600">
+            Buy Now
+          </a>
+        </div>
+      `;
+        }
+    </script>
+
+    <div id="footer"></div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>

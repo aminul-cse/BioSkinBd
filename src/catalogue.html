@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <title>Catalogue</title>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Navbar Placeholder -->
+    <div id="navbar"></div>
+
+    <div class="p-4 flex flex-col md:flex-row flex-grow gap-6">
+        <!-- Left Sidebar -->
+        <div class="md:w-1/4 w-full p-4 flex flex-col space-y-4">
+            <button class="category-btn px-4 py-2 bg-blue-500 text-white rounded"
+                data-category="facewash">Facewash</button>
+            <button class="category-btn px-4 py-2 bg-gray-200 rounded" data-category="lotion">Lotion</button>
+            <button class="category-btn px-4 py-2 bg-gray-200 rounded" data-category="soap">Soap</button>
+        </div>
+
+        <!-- Right Products -->
+        <div class="md:w-3/4 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 auto-rows-fr"
+            id="product-grid">
+            <!-- JS injected cards -->
+        </div>
+
+    </div>
+
+    <div id="footer"></div>
+    <script src="./script.js"></script>
+
+    <script>
+        // Products with unique IDs
+        const productsData = {
+            facewash: [
+                { id: 1, name: "Facewash A", price: 300, img: "./assets/images/product1.jpg" },
+                { id: 2, name: "Facewash B", price: 350, img: "./assets/images/product2.jpg" },
+                { id: 3, name: "Facewash C", price: 400, img: "./assets/images/product3.jpg" },
+            ],
+            lotion: [
+                { id: 4, name: "Lotion A", price: 500, img: "./assets/images/lotion1.jpg" },
+                { id: 5, name: "Lotion B", price: 550, img: "./assets/images/lotion2.jpg" },
+            ],
+            soap: [
+                { id: 6, name: "Soap A", price: 150, img: "./assets/images/soap1.jpg" },
+                { id: 7, name: "Soap B", price: 180, img: "./assets/images/soap2.jpg" },
+            ]
+        };
+
+        const categoryBtns = document.querySelectorAll(".category-btn");
+        const productGrid = document.getElementById("product-grid");
+
+        function showProducts(category) {
+            productGrid.innerHTML = "";
+            productsData[category].forEach(p => {
+                const card = document.createElement("div");
+                card.className = "bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow duration-200";
+
+                card.innerHTML = `
+  <a href="product-details.html?id=${p.id}" class="block h-full flex flex-col">
+    <img src="${p.img}" class="w-full h-40 sm:h-48 md:h-52 lg:h-60 object-cover rounded-md mb-2">
+    <h3 class="mt-2 font-semibold">${p.name}</h3>
+    <p class="text-gray-600">৳${p.price}</p>
+  </a>
+`;
+
+
+
+                productGrid.appendChild(card);
+            });
+        }
+
+        // Initial load
+        showProducts("facewash");
+
+        // Category button click
+        categoryBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                categoryBtns.forEach(b => {
+                    b.classList.remove("bg-blue-500", "text-white");
+                    b.classList.add("bg-gray-200");
+                });
+
+                btn.classList.add("bg-blue-500", "text-white");
+                btn.classList.remove("bg-gray-200");
+
+                const category = btn.getAttribute("data-category");
+                showProducts(category);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
