@@ -8,7 +8,7 @@ function loadNavbar() {
     });
 }
 
-// Page load হলে কল হবে
+// Page load call
 window.addEventListener("DOMContentLoaded", loadNavbar);
 
 // Load footer dynamically
@@ -45,3 +45,50 @@ function slideReviews() {
 }
 
 setInterval(slideReviews, 3000);
+
+const slides = [
+    { title: "SAMUI GLUTA LOTION", subtitle: "WHITENING & MOISTURIZER", image: "./assets/images/lotion1.png" },
+    { title: "SAMUI SM CREAM", subtitle: "ANTI STRETCH MARK CREAM", image: "./assets/images/cream1.png" },
+    { title: "SAMUI SHAMPOO", subtitle: "ANTI-HAIR LOSS & ANTI-DANDRUFF", image: "./assets/images/shampoo1.png" }
+];
+
+let currentIndex = 0;
+
+function changeSlide() {
+    const title = document.getElementById("hero-title-text");
+    const subtitle = document.getElementById("hero-subtitle-text");
+    const productImg = document.getElementById("hero-product");
+
+    currentIndex = (currentIndex + 1) % slides.length;
+
+    // Animate fade out + scale down
+    productImg.classList.remove("scale-big");
+    productImg.classList.add("scale-small");
+    title.classList.add("opacity-0", "-translate-y-2");
+    subtitle.classList.add("opacity-0", "-translate-y-2");
+
+    setTimeout(() => {
+        // Update content
+        productImg.src = slides[currentIndex].image;
+        title.textContent = slides[currentIndex].title;
+        subtitle.textContent = slides[currentIndex].subtitle;
+
+        // Animate fade in + scale up
+        productImg.classList.remove("scale-small");
+        productImg.classList.add("scale-big");
+        title.classList.remove("opacity-0", "-translate-y-2");
+        subtitle.classList.remove("opacity-0", "-translate-y-2");
+    }, 600); // half of transition duration
+}
+
+// Initialize first slide
+const titleInit = document.getElementById("hero-title-text");
+const subtitleInit = document.getElementById("hero-subtitle-text");
+const productImgInit = document.getElementById("hero-product");
+
+titleInit.textContent = slides[0].title;
+subtitleInit.textContent = slides[0].subtitle;
+productImgInit.src = slides[0].image;
+productImgInit.classList.add("scale-big", "fade-scale");
+
+setInterval(changeSlide, 4000);
