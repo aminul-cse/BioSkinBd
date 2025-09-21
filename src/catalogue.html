@@ -13,86 +13,120 @@
     <!-- Navbar Placeholder -->
     <div id="navbar"></div>
 
-    <div class="p-4 flex flex-col md:flex-row flex-grow gap-6">
-        <!-- Left Sidebar -->
-        <div class="md:w-1/4 w-full p-4 flex flex-col space-y-4">
-            <button class="category-btn px-4 py-2 bg-blue-500 text-white rounded"
-                data-category="facewash">Facewash</button>
-            <button class="category-btn px-4 py-2 bg-gray-200 rounded" data-category="lotion">Lotion</button>
-            <button class="category-btn px-4 py-2 bg-gray-200 rounded" data-category="soap">Soap</button>
-        </div>
+<div class="p-4 flex flex-col md:flex-row flex-grow gap-6">
 
-        <!-- Right Products -->
-        <div class="md:w-3/4 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 auto-rows-fr"
-            id="product-grid">
-            <!-- JS injected cards -->
-        </div>
-
+    <!-- Mobile Dropdown -->
+    <div class="md:hidden mb-4">
+        <select id="category-select" class="w-full px-4 py-2 border rounded">
+            <option value="ALL">All Categories</option>
+            <option value="SOAP">SOAP</option>
+            <option value="LOTION">LOTION</option>
+            <option value="CREAM">CREAM</option>
+            <option value="CAPSULE">CAPSULE</option>
+            <option value="SHAMPOO">SHAMPOO</option>
+            <option value="OIL">OIL</option>
+        </select>
     </div>
+
+    <!-- Left Sidebar (Desktop) -->
+    <div class="hidden md:flex md:w-1/4 w-full p-4 flex-col space-y-4">
+        <button class="category-btn px-4 py-2 bg-blue-500 text-white rounded" data-category="SOAP">SOAP</button>
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded" data-category="LOTION">LOTION</button>
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded" data-category="CREAM">CREAM</button>
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded" data-category="CAPSULE">CAPSULE</button>
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded" data-category="SHAMPOO">SHAMPOO</button>
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded" data-category="OIL">OIL</button>
+    </div>
+
+    <!-- Right Products -->
+    <div class="md:w-3/4 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 auto-rows-fr"
+        id="product-grid">
+        <!-- JS injected cards -->
+    </div>
+
+</div>
+
+<script>
+    const productsData = [
+        { id: 3, name: "SERENE SOAP", price: 300, img: "./assets/images/soap1.png", category: "SOAP" },
+        { id: 11, name: "ASEP SOAP", price: 350, img: "./assets/images/soap3.png", category: "SOAP" },
+        { id: 14, name: "SATINY SOAP", price: 400, img: "./assets/images/soap5.png", category: "SOAP" },
+        { id: 13, name: "SAMUI SPOT & ACNE CLEAR SOAP", price: 400, img: "./assets/images/soap4.png", category: "SOAP" },
+        { id: 9, name: "SAMUI KETO BAR", price: 400, img: "./assets/images/soap2.png", category: "SOAP" },
+        { id: 2, name: "SAMUI GLUTA LOTION", price: 500, img: "./assets/images/lotion1.png", category: "LOTION" },
+        { id: 4, name: "SAMUI SM CREAM", price: 150, img: "./assets/images/cream1.png", category: "CREAM" },
+        { id: 6, name: "SAMUI SUN CREAM", price: 500, img: "./assets/images/cream4.png", category: "CREAM" },
+        { id: 7, name: "SAMUI FOOT CREAM", price: 500, img: "./assets/images/cream3.png", category: "CREAM" },
+        { id: 10, name: "SAMUI ACNE CREAM", price: 500, img: "./assets/images/cream2.png", category: "CREAM" },
+        { id: 1, name: "AAEGIS AID MEN CAPSULES", price: 150, img: "./assets/images/capsule1.png", category: "CAPSULE" },
+        { id: 8, name: "LUMINE CAPSULES", price: 180, img: "./assets/images/capsule2.png", category: "CAPSULE" },
+        { id: 12, name: "SAMUI SHAMPOO", price: 500, img: "./assets/images/shampoo1.png", category: "SHAMPOO" },
+        { id: 5, name: "JUST MODERN HAIR TONIC", price: 500, img: "./assets/images/oil1.png", category: "OIL" }
+    ];
+
+    const productGrid = document.getElementById('product-grid');
+    const select = document.getElementById('category-select');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+
+    // Render all products
+    function renderProducts() {
+        productGrid.innerHTML = '';
+        productsData.forEach(p => {
+            const card = document.createElement('a');
+            card.href = `product-details.html?id=${p.id}`;
+            card.className = 'product-card block h-full flex flex-col bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200';
+            card.dataset.category = p.category;
+            card.innerHTML = `
+            <div class="flex-1 flex items-center justify-center">
+                <img src="${p.img}" class="w-full h-40 sm:h-48 md:h-52 lg:h-60 object-contain rounded-md mb-2" alt="${p.name}">
+            </div>
+            <h3 class="mt-2 font-semibold text-center">${p.name}</h3>
+            <p class="text-gray-600 text-center">৳${p.price}</p>
+        `;
+            productGrid.appendChild(card);
+        });
+    }
+    renderProducts(); // initial render
+
+    // Filter function (desktop + mobile)
+    function filterProducts(category) {
+        const cards = document.querySelectorAll('.product-card');
+        cards.forEach(card => {
+            if (category === "ALL" || card.dataset.category === category) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+
+        // update sidebar buttons
+        categoryBtns.forEach(btn => {
+            if (btn.dataset.category === category) {
+                btn.classList.add('bg-blue-500', 'text-white');
+                btn.classList.remove('bg-gray-200');
+            } else {
+                btn.classList.remove('bg-blue-500', 'text-white');
+                btn.classList.add('bg-gray-200');
+            }
+        });
+
+        // update mobile dropdown
+        select.value = category;
+    }
+
+    // Desktop button click
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => filterProducts(btn.dataset.category));
+    });
+
+    // Mobile dropdown
+    select.addEventListener('change', e => filterProducts(e.target.value));
+</script>
+
 
     <div id="footer"></div>
     <script src="./script.js"></script>
 
-    <script>
-        // Products with unique IDs
-        const productsData = {
-            facewash: [
-                { id: 1, name: "Facewash A", price: 300, img: "./assets/images/product1.jpg" },
-                { id: 2, name: "Facewash B", price: 350, img: "./assets/images/product2.jpg" },
-                { id: 3, name: "Facewash C", price: 400, img: "./assets/images/product3.jpg" },
-            ],
-            lotion: [
-                { id: 4, name: "Lotion A", price: 500, img: "./assets/images/lotion1.jpg" },
-                { id: 5, name: "Lotion B", price: 550, img: "./assets/images/lotion2.jpg" },
-            ],
-            soap: [
-                { id: 6, name: "Soap A", price: 150, img: "./assets/images/soap1.jpg" },
-                { id: 7, name: "Soap B", price: 180, img: "./assets/images/soap2.jpg" },
-            ]
-        };
-
-        const categoryBtns = document.querySelectorAll(".category-btn");
-        const productGrid = document.getElementById("product-grid");
-
-        function showProducts(category) {
-            productGrid.innerHTML = "";
-            productsData[category].forEach(p => {
-                const card = document.createElement("div");
-                card.className = "bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow duration-200";
-
-                card.innerHTML = `
-  <a href="product-details.html?id=${p.id}" class="block h-full flex flex-col">
-    <img src="${p.img}" class="w-full h-40 sm:h-48 md:h-52 lg:h-60 object-cover rounded-md mb-2">
-    <h3 class="mt-2 font-semibold">${p.name}</h3>
-    <p class="text-gray-600">৳${p.price}</p>
-  </a>
-`;
-
-
-
-                productGrid.appendChild(card);
-            });
-        }
-
-        // Initial load
-        showProducts("facewash");
-
-        // Category button click
-        categoryBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                categoryBtns.forEach(b => {
-                    b.classList.remove("bg-blue-500", "text-white");
-                    b.classList.add("bg-gray-200");
-                });
-
-                btn.classList.add("bg-blue-500", "text-white");
-                btn.classList.remove("bg-gray-200");
-
-                const category = btn.getAttribute("data-category");
-                showProducts(category);
-            });
-        });
-    </script>
 
 </body>
 

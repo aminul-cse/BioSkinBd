@@ -11,24 +11,13 @@
 <body class="bg-gray-50 min-h-screen flex flex-col">
     <!-- Navbar Placeholder -->
     <div id="navbar"></div>
-
-    <section class="p-8 flex-grow grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        <a href="product-details.html?id=1" class="bg-white rounded-lg shadow-md p-4">
-            <img src="./assets/images/p1.jpg" class="w-full h-40 object-cover rounded-md">
-            <h3 class="mt-2 text-lg font-semibold">Product 1</h3>
-            <p class="text-gray-600">৳500</p>
-        </a>
-    
-        <a href="product-details.html?id=2" class="bg-white rounded-lg shadow-md p-4">
-            <img src="./assets/images/p2.jpg" class="w-full h-40 object-cover rounded-md">
-            <h3 class="mt-2 text-lg font-semibold">Product 2</h3>
-            <p class="text-gray-600">৳700</p>
-        </a>
-    
-        <!-- সব 20 টা card একইভাবে -->
-    </section>
+<section class="pt-5">
+    <div class="text-center font-bold text-4xl">Find All your Health Products</div>
+    <div id="product-grid" class="p-8 flex-grow grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+</section>
     <div id="footer"></div>
     <script src="./script.js"></script>
+    <script src="./product.js"></script>
 </body>
 
 </html>

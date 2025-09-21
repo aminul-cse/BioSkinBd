@@ -1,25 +1,44 @@
 
-// Load Navbar dynamically
-function loadNavbar() {
-  fetch("./components/navbar.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("navbar").innerHTML = data;
-    });
-}
+document.addEventListener("DOMContentLoaded", () => {
+    // Load navbar dynamically
+    fetch("./components/navbar.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar").innerHTML = data;
 
-// Page load call
-window.addEventListener("DOMContentLoaded", loadNavbar);
+            const btn = document.getElementById("mobile-menu-btn");
+            const menu = document.getElementById("mobile-menu");
+            const hamburger = document.getElementById("hamburger-icon");
+            const closeIcon = document.getElementById("close-icon");
 
-// Load footer dynamically
-function loadfooter() {
-  fetch("./components/footer.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("footer").innerHTML = data;
-    });
-}
-window.addEventListener("DOMContentLoaded", loadfooter);
+            if (!btn || !menu || !hamburger || !closeIcon) return;
+
+            btn.addEventListener("click", () => {
+                const isOpen = !menu.classList.contains("translate-x-full");
+
+                if (isOpen) {
+                    // Close menu
+                    menu.classList.add("translate-x-full");
+                    hamburger.classList.remove("hidden");
+                    closeIcon.classList.add("hidden");
+                } else {
+                    // Open menu
+                    menu.classList.remove("translate-x-full");
+                    hamburger.classList.add("hidden");
+                    closeIcon.classList.remove("hidden");
+                }
+            });
+        });
+
+    // Load footer dynamically (optional)
+    fetch("./components/footer.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("footer").innerHTML = data;
+        });
+});
+
+
 
 // Example: dynamically redirect with message
 function contactOnWhatsApp(productName) {
@@ -28,7 +47,8 @@ function contactOnWhatsApp(productName) {
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
 }
 
-// review slider 
+
+//======================== review slider 
 const slider = document.getElementById("review-slider");
 const cards = slider.children;
 let index = 0;
@@ -45,6 +65,8 @@ function slideReviews() {
 }
 
 setInterval(slideReviews, 3000);
+
+//====================== Home page banner animation
 
 const slides = [
     { title: "SAMUI GLUTA LOTION", subtitle: "WHITENING & MOISTURIZER", image: "./assets/images/lotion1.png" },
